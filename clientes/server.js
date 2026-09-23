@@ -4,6 +4,16 @@ const db = require("./db"); /*parte de conexão com o banco*/
 const app = express();
 app.use(express.json());
 
+app.get("/clientes", async (req, res) => {
+  /*rota para buscar todos os clientes*/
+  try {
+    const resultado = await db.query("SELECT * FROM clientes ORDER BY id");
+    res.json(resultado.rows);
+  } catch (erro) {
+    res.status(500).json({ erro: "Erro ao buscar clientes" });
+  }
+});
+
 async function criarTabela() {
   await db.query(`
         CREATE TABLE IF NOT EXISTS clientes (
