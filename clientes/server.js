@@ -1,0 +1,24 @@
+const express = require("express"); /*cria as rotas e responde*/
+const db = require("./db"); /*parte de conexão com o banco*/
+
+const app = express();
+app.use(express.json());
+
+async function criarTabela() {
+  await db.query(`
+        CREATE TABLE IF NOT EXISTS clientes (
+        id SERIAL PRIMARY KEY,
+        nome VARCHAR(100) NOT NULL,
+        sobrenome VARCHAR(100) NOT NULL,
+        telefone VARCHAR(20),
+        email VARCHAR(150) NOT NULL UNIQUE
+        )
+        `);
+  console.log("Tabela de clientes está pronta");
+}
+criarTabela();
+
+app.listen(3003, () => {
+  /*liga o servidor, reservando a 3003*/
+  console.log("Servidor de clientes está rodando na 3003");
+});
