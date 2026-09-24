@@ -1,0 +1,38 @@
+### Listar clientes
+GET http://localhost:3003/clientes
+
+### Buscar cliente por ID
+GET http://localhost:3003/clientes/1
+
+### Buscar cliente inexistente (404)
+GET http://localhost:3003/clientes/999
+
+### Cadastrar cliente
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+  "nome": "Joao",
+  "sobrenome": "Silva",
+  "telefone": "46999999999",
+  "email": "joao@email.com"
+}
+
+### Cadastrar sem campos obrigatórios (400)
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+  "nome": "Joao"
+}
+
+### Cadastrar e-mail duplicado (409)
+POST http://localhost:3003/clientes
+Content-Type: application/json
+
+{
+  "nome": "Outro",
+  "sobrenome": "Cliente",
+  "telefone": "46900000000",
+  "email": "joao@email.com"
+}
