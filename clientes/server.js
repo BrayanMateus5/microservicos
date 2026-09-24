@@ -50,6 +50,9 @@ app.post("/clientes", async (req, res) => {
     );
     res.status(201).json(resultado.rows[0]);
   } catch (erro) {
+    if (erro.code === "23505") {
+      return res.status(409).json({ erro: "Email já cadastrado" });
+    }
     res.status(500).json({ erro: "Erro ao criar cliente" });
   }
 });
